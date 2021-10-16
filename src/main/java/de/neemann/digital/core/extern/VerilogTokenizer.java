@@ -18,7 +18,7 @@ public class VerilogTokenizer {
 
     enum Token {UNKNOWN, MODULE, INPUT, OUTPUT, INOUT, REG, WIRE, ENDMODULE,
                 EOF, NUMBER, IDENT, OPENPAR, CLOSEPAR, OPENBRACKET, CLOSEBRACKET,
-                SEMICOLON, COLON, COMMA, ERROR};
+                SEMICOLON, COLON, COMMA, ERROR, LOGIC};
 
     private final Reader in;
     private String value;
@@ -161,6 +161,7 @@ public class VerilogTokenizer {
             case "reg": return Token.REG;
             case "wire": return Token.WIRE;
             case "endmodule": return Token.ENDMODULE;
+            case "logic": return Token.LOGIC;
             default:
                 return Token.IDENT;
         }

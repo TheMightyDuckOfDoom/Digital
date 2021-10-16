@@ -157,7 +157,7 @@ public abstract class ApplicationVerilogStdIO implements Application {
             case INPUT:
                 isInput = true;
                 currToken = st.nextToken();
-                if (currToken == Token.WIRE) {
+                if (currToken == Token.WIRE || currToken == Token.LOGIC) {
                     currToken = st.nextToken();
                 }
                 break;
@@ -165,7 +165,7 @@ public abstract class ApplicationVerilogStdIO implements Application {
                 isInput = false;
                 currToken = st.nextToken();
                 if (currToken == Token.WIRE
-                        || currToken == Token.REG) {
+                        || currToken == Token.REG || currToken == Token.LOGIC) {
                     currToken = st.nextToken();
                 }
                 break;
