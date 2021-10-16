@@ -807,7 +807,7 @@ public final class Keys {
      * The iverilog options
      */
     public static final Key<String> IVERILOG_OPTIONS
-            = new Key.LongString("iverilogOptions", "").setRows(3).setColumns(30).setPanelId("Options");
+            = new Key.LongString("iverilogOptions", "-g2012").setRows(3).setColumns(30).setPanelId("Options");
 
     /**
      * Path to iverilog installation directory
