@@ -140,18 +140,36 @@ public class FileLocator {
                 }
             }
         }
-
+        
         if (libraryRoot != null) {
-            LOGGER.debug(filename + ": start library folder lookup");
-            ArrayList<File> foundFiles = new ArrayList<>();
-            try {
-                search(libraryRoot, foundFiles, MAX_FILE_COUNTER);
-                if (foundFiles.size() == 1) {
-                    LOGGER.debug(filename + " found in library folder");
-                    return foundFiles.get(0);
+            if(file.getPath().startsWith("./")) {
+            	String totalPath = libraryRoot.getAbsolutePath();
+            	String path = file.getPath().substring(2);
+            	
+            	while(path.startsWith("../")) {
+            		path = path.substring(3);
+            		int index = totalPath.lastIndexOf("/");
+            		totalPath = totalPath.substring(0, index);
+            	}
+            	totalPath += "/" + path;
+            	
+            	File f = new File(totalPath);
+            	if (f.isFile() && f.exists()) {
+                    return f;
                 }
-            } catch (IOException e) {
-                LOGGER.debug(filename + ": " + e.getMessage());
+            }
+            else {
+	            LOGGER.debug(filename + ": start library folder lookup");
+	            ArrayList<File> foundFiles = new ArrayList<>();
+	            try {
+	                search(libraryRoot, foundFiles, MAX_FILE_COUNTER);
+	                if (foundFiles.size() == 1) {
+	                    LOGGER.debug(filename + " found in library folder");
+	                    return foundFiles.get(0);
+	                }
+	            } catch (IOException e) {
+	                LOGGER.debug(filename + ": " + e.getMessage());
+	            }
             }
         }
         LOGGER.debug(filename + " not found");
